@@ -1,0 +1,28 @@
+name: uptime
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Site returns 200
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 https://www.knownorbits.com/)
+          echo "www status: $code"
+          [ "$code" = "200" ]
+      - name: TLS certificate valid for more than 14 days
+        run: |
+          echo | openssl s_client -connect www.knownorbits.com:443 -servername www.knownorbits.com 2>/dev/null \
+            | openssl x509 -noout -enddate
+          echo | openssl s_client -connect www.knownorbits.com:443 -servername www.knownorbits.com 2>/dev/null \
+            | openssl x509 -noout -checkend $((14*86400))
+      - name: Apex redirects to www
+        run: |
+          out=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 30 https://knownorbits.com/)
+          echo "apex: $out"
+          case "$out" in 301\ https://www.knownorbits.com/*|308\ https://www.knownorbits.com/*) ;; *) exit 1;; esac

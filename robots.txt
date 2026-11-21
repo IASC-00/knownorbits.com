@@ -1,0 +1,5 @@
+# Indexing is ON: no noindex anywhere except the 404 page.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.knownorbits.com/sitemap.xml
