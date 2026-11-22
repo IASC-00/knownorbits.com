@@ -29,7 +29,7 @@
 			e: !!(vars.event || goatcounter.event),
 			s: [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)],
 			b: is_bot(),
-			q: location.search,
+			q: '',  // Known Orbits: never send query strings
 		}
 
 		var rcb, pcb, tcb  // Save callbacks to apply later.
@@ -99,7 +99,7 @@
 			if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
 				loc = a
 		}
-		return (loc.pathname + loc.search) || '/'
+		return loc.pathname || '/'  // Known Orbits: path only, no query string
 	}
 
 	// Run function after DOM is loaded.

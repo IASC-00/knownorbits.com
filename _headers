@@ -4,7 +4,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   X-Frame-Options: DENY
-  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://knownorbits.goatcounter.com; style-src 'self'; font-src 'self'; script-src 'self'; connect-src https://knownorbits.goatcounter.com; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://stats.knownorbits.com; style-src 'self'; font-src 'self'; script-src 'self'; connect-src https://stats.knownorbits.com; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
 /assets/*
   Cache-Control: public, max-age=604800
 /assets/fonts/*
