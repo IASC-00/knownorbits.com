@@ -29,7 +29,9 @@
 			e: !!(vars.event || goatcounter.event),
 			s: [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)],
 			b: is_bot(),
-			q: '',  // Known Orbits: never send query strings
+			// Known Orbits: never send query strings, except a plain utm_source tag so we can see
+			// which profile a visit came from (GoatCounter uses it as the referrer).
+			q: (function() { var m = /[?&]utm_source=([a-z0-9_-]{1,30})(&|$)/i.exec(location.search); return m ? '?utm_source=' + m[1] : '' })(),
 		}
 
 		var rcb, pcb, tcb  // Save callbacks to apply later.
